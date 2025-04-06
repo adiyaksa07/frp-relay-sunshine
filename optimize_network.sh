@@ -134,7 +134,7 @@ setup_sunshine_tweaks() {
 }
 
 set_mtu_size() { 
-    local MTU_SIZE=9001
+    local MTU_SIZE=1500
     local MAIN_IFACE=$(ip -o -4 route show default | awk '{print $5}')
 
     echo "[AWS] 正在设置 MTU 为 $MTU_SIZE (主接口: $MAIN_IFACE)..."
