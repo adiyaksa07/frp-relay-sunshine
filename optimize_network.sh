@@ -47,6 +47,7 @@ net.core.netdev_max_backlog=5000
 net.ipv4.tcp_max_syn_backlog=8192
 net.ipv4.tcp_syncookies=1
 net.ipv4.ip_local_port_range=1024 65535
+tcp_slow_start_after_idle=0
 EOF
 
     sysctl -p
