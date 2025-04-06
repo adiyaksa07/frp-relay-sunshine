@@ -133,9 +133,43 @@ setup_sunshine_tweaks() {
     exit 1
 }
 
+set_mtu_size() { 
+    local MTU_SIZE=9001
+    local MAIN_IFACE=$(ip -o -4 route show default | awk '{print $5}')
+
+    echo "[AWS] 正在设置 MTU 为 $MTU_SIZE (主接口: $MAIN_IFACE)..."
+
+    if [ -z "$MAIN_IFACE" ]; then
+        echo "错误: 未找到默认网络接口!"
+        return 1
+    fi
+
+    if sudo ip link set dev $MAIN_IFACE mtu $MTU_SIZE; then
+        echo "成功: $MAIN_IFACE MTU 临时设置为 $MTU_SIZE"
+
+
+        if [ -d /etc/netplan ]; then
+            echo "持久化配置到 /etc/netplan..."
+            sudo bash -c "cat > /etc/netplan/99-mtu.yaml" <<EOF
+network:
+  version: 2
+  ethernets:
+    $MAIN_IFACE:
+      mtu: $MTU_SIZE
+EOF
+            sudo netplan apply
+            echo "MTU 设置已持久化。"
+        fi
+    else
+        echo "错误: 无法设置 MTU! 请检查实例是否支持 ENA 和 Jumbo Frame。"
+        echo "提示: AWS 实例类型必须是带有 'n' 的型号（如 c5n.4xlarge）。"
+    fi
+}
+
 apply_kernel_optimizations
 setup_qos_aws
 setup_sunshine_tweaks
+set_mtu_size
 
 echo -e "\n优化完成! 当前配置:"
 sysctl -a | grep -e rmem -e wmem -e tcp_ -e somaxconn | grep -v default
