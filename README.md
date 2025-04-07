@@ -12,7 +12,7 @@ Sunshine 是一个开源的游戏串流服务端，可以跟 Moonlight 配合使
 
 - `frpc.ini`：FRP 客户端配置文件
 - `frps.ini`：FRP 服务端配置文件
-- `optimize_network.sh`：网络优化脚本（可选，能调一些参数，让网络更稳）
+- `v2_optimize_network.sh`：网络优化脚本（可选，能调一些参数，让网络更稳）
 
 ## 准备工作
 
