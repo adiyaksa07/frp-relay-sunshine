@@ -39,11 +39,11 @@ Sunshine 是一个开源的游戏串流服务端，可以跟 Moonlight 配合使
      ./frpc -c frpc.ini
      ```
 
-3. **网络优化（可选）**
-   - 如果想搞点进阶操作，让网络更稳、更快，可以运行这个脚本：
+3. **网络优化（推荐一定要跑）**
+   - 为了让 VPS 串流更稳更顺，建议跑一下这个新版的脚本：`v2_optimize_network.sh`。老版本就别用了，这个更靠谱。
 
      ```bash
-     ./optimize_network.sh
+     ./v2_optimize_network.sh
      ```
 
 ---
