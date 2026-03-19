@@ -1,46 +1,51 @@
+---
+
 # frp-relay-sunshine
 
-这个项目主要是搞一个配置，用来把 **FRP（Fast Reverse Proxy）** 搭起来，让它能当 Sunshine 和 Moonlight 之间的“中转站”。这样你就能在外网低延迟地串流游戏了，不管你电脑是在防火墙后面还是 NAT 后面，都能直接连。
+This project mainly provides a configuration setup to deploy **FRP (Fast Reverse Proxy)** as a “relay” between Sunshine and Moonlight. This allows you to stream games with low latency over the internet, even if your computer is behind a firewall or NAT.
 
-## 项目介绍
+## Project Overview
 
-Sunshine 是一个开源的游戏串流服务端，可以跟 Moonlight 配合使用，效果贼棒，低延迟高画质。
+Sunshine is an open-source game streaming server that works great with Moonlight, offering excellent performance with low latency and high image quality.
 
-但是，如果你家里的 Sunshine 主机不是公网 IP，那 Moonlight 根本连不上，这时候就得用 FRP 来穿透。这个 repo 就是帮你配置好这些东西，让你省点事儿。
+However, if your Sunshine host doesn’t have a public IP address, Moonlight won’t be able to connect. That’s where FRP comes in—to handle NAT traversal. This repository helps you set everything up so you don’t have to deal with the hassle.
 
-## 项目里有什么
+## What’s Included
 
-- `frpc.ini`：FRP 客户端配置文件
-- `frps.ini`：FRP 服务端配置文件
-- `v2_optimize_network.sh`：网络优化脚本（可选，能调一些参数，让网络更稳）
+* `frpc.ini`: FRP client configuration file
+* `frps.ini`: FRP server configuration file
+* `v2_optimize_network.sh`: Network optimization script (optional, helps improve stability by tuning parameters)
 
-## 准备工作
+## Prerequisites
 
-先得装好这两个东西：
+You’ll need to install the following first:
 
-- Sunshine：[https://github.com/LizardByte/Sunshine](https://github.com/LizardByte/Sunshine)
-- FRP：[https://github.com/fatedier/frp](https://github.com/fatedier/frp)
+* Sunshine: [https://github.com/LizardByte/Sunshine](https://github.com/LizardByte/Sunshine)
+* FRP: [https://github.com/fatedier/frp](https://github.com/fatedier/frp)
 
-## 怎么用？
+## How to Use
 
-1. **配置 FRP 服务端（在有公网 IP 的服务器上运行）**
-   - 根据你实际的端口和 token 修改 `frps.ini`
-   - 启动服务端：
+1. **Set up the FRP server (run on a server with a public IP)**
+
+   * Modify `frps.ini` according to your ports and token
+   * Start the server:
 
      ```bash
      ./frps -c frps.ini
      ```
 
-2. **配置 FRP 客户端（在运行 Sunshine 的机器上运行）**
-   - 改好 `frpc.ini`，填对服务器地址和端口
-   - 启动客户端：
+2. **Set up the FRP client (run on the machine running Sunshine)**
+
+   * Edit `frpc.ini` and fill in the correct server address and port
+   * Start the client:
 
      ```bash
      ./frpc -c frpc.ini
      ```
 
-3. **网络优化（推荐一定要跑）**
-   - 为了让 VPS 串流更稳更顺，建议跑一下这个新版的脚本：`v2_optimize_network.sh`。老版本就别用了，这个更靠谱。
+3. **Network optimization (highly recommended)**
+
+   * To make streaming through your VPS smoother and more stable, it’s recommended to run the updated script `v2_optimize_network.sh`. Avoid older versions—this one is more reliable.
 
      ```bash
      ./v2_optimize_network.sh
@@ -48,4 +53,4 @@ Sunshine 是一个开源的游戏串流服务端，可以跟 Moonlight 配合使
 
 ---
 
-欢迎使用，能玩得爽最重要，别太折腾。
+Enjoy! The most important thing is having a smooth gaming experience—don’t overcomplicate it.
