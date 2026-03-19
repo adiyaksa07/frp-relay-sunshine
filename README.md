@@ -1,5 +1,3 @@
----
-
 # frp-relay-sunshine
 
 This project mainly provides a configuration setup to deploy **FRP (Fast Reverse Proxy)** as a “relay” between Sunshine and Moonlight. This allows you to stream games with low latency over the internet, even if your computer is behind a firewall or NAT.
